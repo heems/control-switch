@@ -4,12 +4,27 @@ window.onload = function(){
 	var game = new Game(640, 480);
 	game.preload('assets/chara1.png');
 	game.preload('assets/map2.png');
-	console.log(game);
-	game.preload('');
+	game.preload('assets/start.png');
 
 	game.fps = 30;
 	game.scale = 1;
 	game.onload = function(){
+
+		var menuScene = new Scene();
+		var play = new Sprite(236, 48);
+		play.x = 200;
+		play.y = 80;
+		play.image = game.assets['assets/start.png'];
+		menuScene.addChild(play);
+		menuScene.backgroundColor = 'black';
+		game.pushScene(menuScene);
+
+		play.addEventListener('touchstart', function() {
+			alert("start clicked!");
+			game.popScene(menuScene);
+			game.pushScene(scene);
+		});
+
 		var scene = new Scene();
 
 
@@ -118,11 +133,25 @@ window.onload = function(){
 		var MOVE_SPEED = 5;
 		sprite.image = game.assets['assets/chara1.png']
 		scene.addChild(sprite);
-		game.pushScene(scene);
-
 		var jumping = false;
-
+		var increaseOpac = false;
+		console.log(game);
 		game.addEventListener('enterframe', function(){
+
+			if(game.currentScene == menuScene) {
+				if(increaseOpac) {
+					play.opacity += 0.03;
+					if(play.opacity >= 0.95)
+						increaseOpac = false;
+				}
+				else {
+					play.opacity -= 0.03;
+					if(play.opacity <= 0.35)
+						increaseOpac = true;
+				}
+			}
+
+
 			if(!jumping) {
 				if (game.input.up){
 					jumping = true;
