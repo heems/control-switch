@@ -4,7 +4,7 @@ window.onload = function(){
 	var game = new Game(640, 480);
 	game.preload('assets/chara1.png');
 	game.preload('assets/map2.png');
-
+	console.log(game);
 	game.preload('');
 
 	game.fps = 30;
@@ -120,19 +120,28 @@ window.onload = function(){
 		scene.addChild(sprite);
 		game.pushScene(scene);
 
+		var jumping = false;
+
 		game.addEventListener('enterframe', function(){
+			if(!jumping) {
+				if (game.input.up){
+					jumping = true;
+					sprite.tl.moveBy(0,-20, 10).then(function() {
+						sprite.tl.moveBy(0,20, 10).then(function() {
+							jumping = false;
+						});
+					});
+				}
+				if (game.input.down) {
+					sprite.y += 10;
+				}
+			}
 			if (game.input.left){
 				sprite.x -= MOVE_SPEED;
-				//sprite.rotate(180);
-				sprite.frame=[0,1,2]
 			}
+
 			if (game.input.right){
 				sprite.x += MOVE_SPEED;
-				sprite.frame = [0,1,2]
-			}
-			if (game.input.up){
-				sprite.y -= MOVE_SPEED;
-				sprite.frame = [3]
 			}
 		});
 	};
