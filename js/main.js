@@ -28,6 +28,10 @@ window.onload = function(){
 
 		var scene = new Scene();
 
+		var timer = new Label("Time Left: 10.00");
+		timer.x = 400;
+		timer.y = 50;
+		scene.addChild(timer);
 
 		var sprite = new Sprite(32, 32);
 		sprite.x = 100; 
@@ -161,6 +165,21 @@ window.onload = function(){
 				GRAVITY = 2;
 			}
 		});
+
+		scene.addEventListener('enter', function() {
+			var blah = setInterval(interval, 100);
+		});
+
+		// frames for 10 seconds
+		var frameTimer = 10;
+		function interval() {
+			frameTimer -= 0.1;
+			timer.text = "Time Left: "+Math.round(100*frameTimer)/100;
+			if(frameTimer <= 0) {
+				// time done
+				frameTimer = 10;
+			}
+		}
 
 		game.addEventListener('leftbuttonup', clearMoveSpeed);
 		game.addEventListener('rightbuttonup', clearMoveSpeed);
