@@ -183,6 +183,28 @@ window.onload = function(){
 			if(frameTimer <= 0) {
 				// time done
 				frameTimer = 10;
+				var repeats = {};
+				var left, right, up;
+				left = Math.floor(Math.random()*3)+37;
+				repeats[left] = "";
+				var taken = true;
+
+				do {
+					right = Math.floor(Math.random()*3)+37;
+				}
+				while(right == left);
+
+				do {
+					up = Math.floor(Math.random()*3)+37;
+				}
+				while(up == right || up == left);
+				
+				console.log('up:'+up);
+				console.log('left:'+left);
+				console.log('right:'+right);
+				game.keybind(up, 'up');
+				game.keybind(left, 'left');
+				game.keybind(right, 'right');
 			}
 		}
 
