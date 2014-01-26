@@ -4,12 +4,27 @@ window.onload = function(){
 	var game = new Game(640, 480);
 	game.preload('assets/chara1.png');
 	game.preload('assets/map2.png');
-
-	game.preload('');
+	game.preload('assets/start.png');
 
 	game.fps = 30;
 	game.scale = 1;
 	game.onload = function(){
+
+		var menuScene = new Scene();
+		var play = new Sprite(236, 48);
+		play.x = 200;
+		play.y = 80;
+		play.image = game.assets['assets/start.png'];
+		menuScene.addChild(play);
+		menuScene.backgroundColor = 'black';
+		game.pushScene(menuScene);
+
+		play.addEventListener('touchstart', function() {
+			alert("start clicked!");
+			game.popScene(menuScene);
+			game.pushScene(scene);
+		});
+
 		var scene = new Scene();
 
 
@@ -87,8 +102,12 @@ window.onload = function(){
 		var MOVE_SPEED = 5;
 		sprite.image = game.assets['assets/chara1.png']
 		scene.addChild(sprite);
-		game.pushScene(scene);
+		var jumping = false;
+		var increaseOpac = false;
+		console.log(game);
+		game.addEventListener('enterframe', function(){
 
+<<<<<<< .mine
 		game.addEventListener('rightbuttondown', function(){
 			sprite.x += MOVE_SPEED; 	
 			sprite.frame = [0,1,2]
@@ -98,15 +117,67 @@ window.onload = function(){
 		});
 
 		game.addEventListener('enterframe', function(){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=======
+			if(game.currentScene == menuScene) {
+				if(increaseOpac) {
+					play.opacity += 0.03;
+					if(play.opacity >= 0.95)
+						increaseOpac = false;
+				}
+				else {
+					play.opacity -= 0.03;
+					if(play.opacity <= 0.35)
+						increaseOpac = true;
+				}
+			}
+
+
+			if(!jumping) {
+				if (game.input.up){
+					jumping = true;
+					sprite.tl.moveBy(0,-20, 10).then(function() {
+						sprite.tl.moveBy(0,20, 10).then(function() {
+							jumping = false;
+						});
+					});
+				}
+				if (game.input.down) {
+					sprite.y += 10;
+				}
+			}
+>>>>>>> .theirs
 			if (game.input.left){
 				sprite.x -= MOVE_SPEED;
-				//sprite.rotate(180);
-				sprite.frame=[0,1,2]
 			}
-			if (game.input.up){
-				sprite.y -= MOVE_SPEED;
-				sprite.frame = [3]
+<<<<<<< .mine
+
+
+
+
+=======
+
+			if (game.input.right){
+				sprite.x += MOVE_SPEED;
 			}
+>>>>>>> .theirs
 		});
 	};
 	game.start();
