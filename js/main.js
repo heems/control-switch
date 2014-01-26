@@ -4,6 +4,9 @@ window.onload = function(){
 	var game = new Game(640, 480);
 	var GRAVITY = 1;
 	var GRAVITY_ACC = .3;
+
+	var SCROLL_SPEED = .5
+	
 	game.preload('assets/chara1.png', 'assets/chara5.png');
 	game.preload('assets/map2.png');
 	game.preload('assets/start.png');
@@ -124,6 +127,9 @@ window.onload = function(){
 		var jumpCount = 0;
 		console.log(game);
 		game.addEventListener('enterframe', function(){
+			backgroundMap.x += SCROLL_SPEED;
+			player.x += SCROLL_SPEED;
+
 			sprite.y += GRAVITY;
 			GRAVITY += GRAVITY_ACC;
 			if(game.currentScene == menuScene) {
