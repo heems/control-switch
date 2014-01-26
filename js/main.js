@@ -3,8 +3,8 @@ enchant();
 window.onload = function(){
 	var game = new Game(640, 480);
 	var GRAVITY = 1;
-	var GRAVITY_ACC = 1.1;
-	game.preload('assets/chara1.png');
+	var GRAVITY_ACC = .3;
+	game.preload('assets/chara1.png', 'assets/chara5.png');
 	game.preload('assets/map2.png');
 	game.preload('assets/start.png');
 
@@ -27,6 +27,18 @@ window.onload = function(){
 		});
 
 		var scene = new Scene();
+
+		var Enemy = enchant.Class.create(enchant.Sprite, {
+            initialize: function(){
+                enchant.Sprite.call(this, 32, 32);
+                this.image = game.assets['assets/chara5.png']; // set image
+                this.moveTo(320, Math.floor(Math.random() * 320)); // set position
+                this.scaleX = -1;
+                this.tl.moveBy(-360, 0, 160);      // set movement
+                game.rootScene.addChild(this);     // canvas
+            }
+        });
+
 
 		var timer = new Label("Time Left: 10.00");
 		timer.x = 400;
@@ -113,7 +125,7 @@ window.onload = function(){
 		console.log(game);
 		game.addEventListener('enterframe', function(){
 			sprite.y += GRAVITY;
-			GRAVITY *= GRAVITY_ACC;
+			GRAVITY += GRAVITY_ACC;
 			if(game.currentScene == menuScene) {
 				if(increaseOpac) {
 					play.opacity += 0.03;
@@ -127,20 +139,13 @@ window.onload = function(){
 				}
 			}
 
-			if(!jumping) {
-				if (game.input.up){
+			if(game.input.up) {
+				if (!jumping){
+					GRAVITY = -5;
+					sprite.y -= 5;
 					jumping = true;
 				}
 			}
-			else {
-				sprite.y -= 5;
-				jumpCount++;
-				if(jumpCount >= 8) {
-					jumping = false;
-					jumpCount = 0;
-				}
-			}
-
 
 			if (game.input.left){
 				sprite.x -= MOVE_SPEED;
@@ -160,8 +165,8 @@ window.onload = function(){
 
 			if (backgroundMap.hitTest(sprite.x, sprite.y + sprite.height) === true){
 				GRAVITY = 0;
-			} else if (GRAVITY == 0){
 				jumping = false;
+			} else if (GRAVITY == 0){
 				GRAVITY = 2;
 			}
 		});
