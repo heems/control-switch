@@ -6,7 +6,7 @@ window.onload = function(){
 	game.preload('assets/map2.png');
 	game.preload('assets/start.png');
 
-	game.fps = 30;
+	game.fps = 90;
 	game.scale = 1;
 	game.onload = function(){
 
@@ -20,7 +20,6 @@ window.onload = function(){
 		game.pushScene(menuScene);
 
 		play.addEventListener('touchstart', function() {
-			alert("start clicked!");
 			game.popScene(menuScene);
 			game.pushScene(scene);
 		});
@@ -129,12 +128,12 @@ window.onload = function(){
 		    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 		];
 
-
-		var MOVE_SPEED = 5;
+		var MOVE_SPEED = 3;
 		sprite.image = game.assets['assets/chara1.png']
 		scene.addChild(sprite);
 		var jumping = false;
 		var increaseOpac = false;
+		var jumpCount = 0;
 		console.log(game);
 		game.addEventListener('enterframe', function(){
 
@@ -151,28 +150,44 @@ window.onload = function(){
 				}
 			}
 
-
 			if(!jumping) {
 				if (game.input.up){
 					jumping = true;
-					sprite.tl.moveBy(0,-20, 10).then(function() {
-						sprite.tl.moveBy(0,20, 10).then(function() {
-							jumping = false;
-						});
-					});
-				}
-				if (game.input.down) {
-					sprite.y += 10;
 				}
 			}
+			else {
+				sprite.y -= 5;
+				jumpCount++;
+				if(jumpCount >= 8) {
+					jumping = false;
+					jumpCount = 0;
+				}
+			}
+
+
 			if (game.input.left){
 				sprite.x -= MOVE_SPEED;
+				if(MOVE_SPEED < 8)
+					MOVE_SPEED += 0.4;
+			}
+
+			if (game.input.down){
+				sprite.y += 10;
 			}
 
 			if (game.input.right){
 				sprite.x += MOVE_SPEED;
+				if(MOVE_SPEED < 8)
+					MOVE_SPEED += 0.4;
 			}
 		});
+
+		game.addEventListener('leftbuttonup', clearMoveSpeed);
+		game.addEventListener('rightbuttonup', clearMoveSpeed);
+
+		function clearMoveSpeed() {
+			MOVE_SPEED = 3;
+		}
 	};
 	game.start();
 };
