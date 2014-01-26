@@ -103,8 +103,6 @@ window.onload = function(){
 		sprite.image = game.assets['assets/chara1.png']
 		scene.addChild(backgroundMap);
 		scene.addChild(sprite);
-		game.pushScene(scene);
-
 		var jumping = false;
 		var increaseOpac = false;
 		var jumpCount = 0;
