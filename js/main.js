@@ -2,13 +2,13 @@ enchant();
 
 window.onload = function(){
 	var game = new Game(640, 480);
-	var GRAVITY = 2;
+	var GRAVITY = 1;
 	var GRAVITY_ACC = 1.1;
 	game.preload('assets/chara1.png');
 	game.preload('assets/map2.png');
 	game.preload('assets/start.png');
 
-	game.fps = 90;
+	game.fps = 60;
 	game.scale = 1;
 	game.onload = function(){
 
@@ -157,6 +157,7 @@ window.onload = function(){
 			if (backgroundMap.hitTest(sprite.x, sprite.y + sprite.height) === true){
 				GRAVITY = 0;
 			} else if (GRAVITY == 0){
+				jumping = false;
 				GRAVITY = 2;
 			}
 		});
