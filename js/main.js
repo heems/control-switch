@@ -6,7 +6,7 @@ window.onload = function(){
 	var GRAVITY_ACC = .3;
 
 	var SCROLL_SPEED = .5
-	
+
 	game.preload('assets/chara1.png', 'assets/chara5.png');
 	game.preload('assets/map2.png');
 	game.preload('assets/start.png');
@@ -127,8 +127,8 @@ window.onload = function(){
 		var jumpCount = 0;
 		console.log(game);
 		game.addEventListener('enterframe', function(){
-			backgroundMap.x += SCROLL_SPEED;
-			player.x += SCROLL_SPEED;
+			backgroundMap.x -= SCROLL_SPEED;
+			sprite.x -= SCROLL_SPEED;
 
 			sprite.y += GRAVITY;
 			GRAVITY += GRAVITY_ACC;
@@ -200,10 +200,7 @@ window.onload = function(){
 				}
 				while(right == left);
 
-				do {
-					up = Math.floor(Math.random()*3)+37;
-				}
-				while(up == right || up == left);
+				up = 37 + 38 + 39 - left - right;
 				
 				console.log('up:'+up);
 				console.log('left:'+left);
