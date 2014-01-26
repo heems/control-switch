@@ -45,7 +45,7 @@ var mapForm = {
 	acceptButton: (function() {
 		var element = document.createElement('input');                            
 		element.type = 'button';                                              
-		element.value = '作成 (Create)';
+		element.value = 'Create Blank Map';
 		element.onclick = function() {
 			var w = document.getElementById('widthBox');
 			var h = document.getElementById('heightBox');                               
@@ -65,11 +65,11 @@ var mapForm = {
 				app.mapHeight = hv;
 				app.image.onload = function() {
 					if (app.extendMode && this.width != 256 || this.height != 256) {
-						alert('256x256pxの画像を使用してください (Use 256x256 Image)');
+						alert('Please use a 256x256 tileset image');
 						return;
 					}
 					start(wv, hv, iv, ev);
-					edit.innerHTML+= '矢印キーでスクロール (Push Arrow Key to Scroll)';
+					edit.innerHTML+= '(Use Arrow Keys to Scroll)';
 					editorTabs.initialize();
 					edit.appendChild(editorTabs.element);
 					edit.appendChild(icons.create());
@@ -90,13 +90,13 @@ var mapForm = {
 	})(),
 	create: function() {
 		var form = document.createElement('div');
-		form.innerHTML += '横幅(Width) : ';
+		form.innerHTML += 'Width (px): ';
 		form.appendChild(this.widthBox);
-		form.innerHTML += '<br />縦幅(Height) : ';
+		form.innerHTML += '<br />Height (px): ';
 		form.appendChild(this.heightBox);
-		form.innerHTML += '<br />画像(Image): ';
+		form.innerHTML += '<br />Image Set: ';
 		form.appendChild(this.imageMenu);
-		form.innerHTML += '<br />マップ拡張を有効にする(Enable Map Extension)';
+		form.innerHTML += '<br />Enable extended mode (leave checked)';
 		form.appendChild(this.extendOption);
 		form.innerHTML += '<br />';
 		form.appendChild(this.acceptButton);
@@ -115,9 +115,9 @@ var editorTabs = {
 	})(),
 	initialize: function() {
 		this.element.appendChild(this.addTabButton);
-		this.addNewTab('coltab', '判定');
-		this.addNewTab('bgtab1', 'tab1', true);
-		this.addNewTab('bgtab2', 'tab2');
+		this.addNewTab('coltab', 'impassable');
+		this.addNewTab('bgtab1', 'layer1', true);
+		this.addNewTab('bgtab2', 'layer2');
 		this.applyColors();
 	},
 	addNewTab: function(id, name, active) {
@@ -310,7 +310,7 @@ var geneButton = (function() {
 	var element = document.createElement('input');
 	element.type = 'button';
 	element.id = 'geneButton';
-	element.value = 'コード生成';
+	element.value = 'Generate Code';
 	element.onclick = function() {
 		var txt = '';
 		var w = window.open('about:blank', '_blank');
@@ -329,7 +329,7 @@ var loadButton = (function() {
 	var element = document.createElement('input');
 	element.type = 'button';
 	element.id = 'loadButton';
-	element.value = 'コード読み込み (Code Import)';
+	element.value = 'Import Code';
 	element.onclick = function() {
 		var w = window.open('about:blank', '_blank');
 		var input = document.createElement('textarea');
@@ -338,7 +338,7 @@ var loadButton = (function() {
 		input.cols = 120;
 		var accept = document.createElement('input');
 		accept.type = 'button';
-		accept.value = '読み込み (Import)';
+		accept.value = 'Import';
 		accept.type = 'button';
 		accept.onclick = function() {
 			try {
