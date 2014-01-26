@@ -19,8 +19,6 @@ window.onload = function(){
 		sprite.y = 20;
 		var backgroundMap = new Map(16, 16);
 		backgroundMap.image = game.assets['assets/map2.png'];
-		var backgroundMap = new Map(16, 16);
-		backgroundMap.image = game.assets['map1.gif'];
 		backgroundMap.loadData([
 		    [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
 		    [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],
